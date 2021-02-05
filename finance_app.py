@@ -12,7 +12,7 @@ tickerSymbols = st.sidebar.multiselect(
 )
 
 st.write("""
-    # Stock Price Tracker App
+    # Stock Price Tracker Application
     """)
 
 x = st.slider("Move slider to decrease/increase data period in years", min_value=1, max_value=10, value=5) 
