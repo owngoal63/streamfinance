@@ -16,7 +16,7 @@ tickerSymbols = st.sidebar.multiselect(
 )
 
 st.write("""
-    # Stock Price Tracker App with Simple Moving Average
+    # Stock Price Tracker App with Simple Moving Average Tracking
     """)
 
 x = st.slider("Move slider to decrease/increase data period in years", min_value=1, max_value=10, value=5) 
