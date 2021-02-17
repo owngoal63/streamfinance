@@ -5,6 +5,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -74,16 +77,52 @@ def buy_sell_MACD(signal):
 
     return(Buy, Sell, latest_status, date_latest_status)
 
+# Functions for calculating the Simple Moving Average (SMA) and the Exponential Moving Average (EMA)
+# Typical time periods for moving averages are 15,20 & 30
+#SMA
+def SMA(data, period=30, column="Close"):
+    return data[column].rolling(window=period).mean()
+#EMA
+def EMA(data, period=20, column="Close"):
+    return data[column].ewm(span=period, adjust=False).mean()
+
+# Function for Moving Average Convergance/Divergance MACD
+def MACD(data, period_long=26, period_short=12, period_signal=9, column='Close'):
+    ShortEMA = EMA(data, period=period_short, column=column)
+    LongEMA = EMA(data, period=period_long, column=column)
+    # Calculate and store the MACD inot the data frame
+    data['MACD'] = ShortEMA - LongEMA
+    # Calculate signal line and store to DF
+    data['signal_Line'] = EMA(data, period=period_signal, column='MACD')
+    return data
+
+# Create a function for relative strength index (RSI)
+def RSI(data, period=14, column='Close'):
+    delta = data[column].diff(1)
+    delta = delta.dropna()
+    up = delta.copy()
+    down = delta.copy()
+    up[up < 0] = 0
+    down[down > 0] = 0
+    data['up'] = up
+    data['down'] = down
+    AVG_Gain = SMA(data, period, column='up')
+    AVG_Loss = abs(SMA(data, period, column='down'))
+    RS = AVG_Gain / AVG_Loss
+    RSI = 100.0 - (100.0 / (1.0 + RS))
+
+    data['RSI'] = RSI
+    return data
 
 
 st.sidebar.header("NYSE Stock Tickers")
 tickerSymbols = st.sidebar.multiselect(
     "Select ticker:",
-    ["GME", "GOOGL", "JNJ", "AAPL" ,"MSFT", "AMZN", "FB", "BRK-A", "JPM", "XOM", "BAC"],['JPM']
+    ["GME", "GOOGL", "JNJ", "AAPL" ,"MSFT", "AMZN", "FB", "TSLA", "BRK-A", "JPM", "XOM", "BAC", "JPM", "KO", "EBAY", "GILD"],["TSLA"]
 )
 
 st.write("""
-    # Stock Price Tracker App with SMA and MACD Tracking
+    # Stock Price App with SMA, MACD Tracking and Movement Predictor Model
     """)
 
 x = st.slider("Move slider to decrease/increase data period in years", min_value=1, max_value=10, value=5) 
@@ -101,7 +140,7 @@ for tickerSymbol in tickerSymbols:
     st.write("""---""")
 
     company_name = yf.Ticker(tickerSymbol).info['longName']
-    st.write("""Stock closing prices and volume of """ + company_name  )
+    st.write("### Stock closing prices and volume of " + company_name  )
 
     tickerData = yf.Ticker(tickerSymbol)
     #tickerDf = tickerData.history(period='1d', start=start_date, end='2021-1-29')
@@ -195,6 +234,51 @@ for tickerSymbol in tickerSymbols:
     st.write("""Current status of MACD for """ + company_name + """ is """ +
     latest_status + """ set on """ + datetime.strftime(date_latest_status, '%Y-%m-%d')  +
      """ """ + str(date_latest_status_days_ago.days) + """ days ago.""" )
+
+    # ------------------------------------------------------------------------
+    #MACD(tickerDf)
+    RSI(tickerDf)
+    tickerDf['SMA'] = SMA(tickerDf)
+    tickerDf['EMA'] = EMA(tickerDf)
+
+    # Create target column ( Is tomorrows price great than todays price?)
+    tickerDf['Target'] = np.where(tickerDf['Close'].shift(-1) > tickerDf['Close'], 1, 0)
+
+    # Remove first 29 days of data to get rid of null values
+    tickerDf = tickerDf[29:]
+
+    #st.dataframe(tickerDf)
+
+    # Split the data set into a feature or independent data set (X) and a Target or dependent data set (Y)
+    keep_columns = ['Close', 'MACD', 'Signal Line', 'RSI', 'SMA', 'EMA']
+    X = tickerDf[keep_columns].values
+    Y = tickerDf['Target'].values
+
+    # Split the data again into 80% training and 20% testing data sets
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state = 2)
+
+    # Create and traing the decision tree classifier model
+    tree = DecisionTreeClassifier().fit(X_train, Y_train)
+    # Check how well the model did on the training data set
+    #print(company_name + " training accuracy: " + str(tree.score(X_train, Y_train)))
+    # Check how well the model did on the test data set
+    #print(company_name + " test accuracy: " + str(tree.score(X_test, Y_test)))
+
+    # Show the model tree prediction
+    tree_predictions = tree.predict(X_test)
+    #print(tree_predictions)
+    #print(Y_test)
+
+    # Get the models metrics
+    from sklearn.metrics import classification_report
+    print(classification_report(Y_test, tree_predictions))
+
+    st.dataframe(tickerDf)
+
+    st.write(company_name + " prediction model accuracy score")
+    st.write(" Accuracy Score: " + str(tree.score(X_test, Y_test)))
+
+
 
 
 
