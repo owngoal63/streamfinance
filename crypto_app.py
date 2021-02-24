@@ -83,6 +83,8 @@ def plot_data(df, cryptocurrency, target_currency):
 
 st.write("# Ciara's canine crypto money maker!")
 
+st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this dog!", width=100)
+
 
 btime = st.slider("Move slider to decrease/increase data in periods of 10 days", min_value=1, max_value=20, value=10)
 
