@@ -83,7 +83,7 @@ def plot_data(df, cryptocurrency, target_currency):
 
 st.write("# Ciara's canine crypto money maker!")
 
-st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this dog!", width=100)
+st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this rival!", width=100)
 
 
 btime = st.slider("Move slider to decrease/increase data in periods of 10 days", min_value=1, max_value=20, value=10)
@@ -108,7 +108,7 @@ total_value = round(current_price * no_of_coins, 2)
 profit = round(total_value - 50,2)
 st.write("### Dogecoin: £" + str(current_price) + " Qty: " + str(no_of_coins) + " Balance: £" + str(total_value) + " Profit : £" + str(profit))
 
-plt.style.use('fivethirtyeight')
+plt.style.use('seaborn-whitegrid')
 plt.figure(figsize=(12.5, 4.5))
 
 fig, ax = plt.subplots()
@@ -116,6 +116,10 @@ fig, ax = plt.subplots()
 ax.axvline(pd.Timestamp('2021-02-22'),color='r', label="Purchase point £0.038")
 ax.plot(df_doge.close, label='Close Price(GBP)')
 ax.legend(loc='upper left')
+ax.xaxis.set_tick_params(rotation=45, labelsize=8)
+ax.yaxis.set_tick_params(labelsize=8)
+#ax.label.set_fontsize('x-small')
+#ax.tick_params(axis='both', which='minor', labelsize=8)
 
 st.pyplot(fig)
 
@@ -124,6 +128,8 @@ st.write("# vs Bitcon")
 fig, ax = plt.subplots()
 ax.plot(df_btc.close, label='Bitcoin')
 ax.legend(loc='upper left')
+ax.xaxis.set_tick_params(rotation=45, labelsize=8)
+ax.yaxis.set_tick_params(labelsize=8)
 
 st.pyplot(fig)
 

@@ -130,7 +130,7 @@ start_date = datetime.strftime(datetime.now() - relativedelta(years=x), '%Y-%m-%
 st.write(x, 'years of data. Start date is ', start_date, '. End date is today. ')
 
 #Chart setup
-plt.style.use('fivethirtyeight')
+plt.style.use('seaborn-whitegrid')
 plt.figure(figsize=(12.5, 4.5))
 plt.ylabel("Close Price ($)")
 #plt.xticks(rotation=45)
@@ -193,6 +193,8 @@ for tickerSymbol in tickerSymbols:
     ax.scatter(data.index, data['Buy Signal Price'], label = "Buy", marker='^', color='green')
     ax.scatter(data.index, data['Sell Signal Price'], label = "Sell", marker='v', color='red')
     ax.legend(loc='upper left')
+    ax.xaxis.set_tick_params(rotation=45, labelsize=8)
+    ax.yaxis.set_tick_params(labelsize=8)
     
     st.pyplot(fig)
 
@@ -229,6 +231,8 @@ for tickerSymbol in tickerSymbols:
     ax.scatter(tickerDf.index, tickerDf['Buy_Signal_Price'], label='Buy', color='green', marker='^')
     ax.scatter(tickerDf.index, tickerDf['Sell_Signal_Price'], label='Sell', color='red', marker='v')
     ax.legend(loc='upper left')
+    ax.xaxis.set_tick_params(rotation=45, labelsize=8)
+    ax.yaxis.set_tick_params(labelsize=8)
     st.pyplot(fig)
 
     st.write("""Current status of MACD for """ + company_name + """ is """ +
