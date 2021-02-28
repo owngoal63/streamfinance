@@ -39,9 +39,9 @@ def get_hist_data(from_sym='BTC', to_sym='USD', timeframe = 'day', limit=2000, a
         print('exchange: ', exchange)
         parameters['e'] = exchange    
     
-    print('baseurl: ', baseurl) 
-    print('timeframe: ', timeframe)
-    print('parameters: ', parameters)
+    #print('baseurl: ', baseurl) 
+    #print('timeframe: ', timeframe)
+    #print('parameters: ', parameters)
     
     # response comes as json
     response = requests.get(baseurl, params=parameters)   
@@ -58,7 +58,7 @@ def data_to_dataframe(data):
     # time is stored as an epoch, we need normal dates
     df['time'] = pd.to_datetime(df['time'], unit='s')
     df.set_index('time', inplace=True)
-    print(df.tail())
+    #print(df.tail())
     
     return df
 
@@ -81,7 +81,7 @@ def plot_data(df, cryptocurrency, target_currency):
     
     return None
 
-st.write("# Ciara's canine crypto money maker!")
+st.write("# Ciara's crypto canine money maker!")
 
 st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this rival!", width=100)
 
@@ -135,6 +135,6 @@ st.pyplot(fig)
 
 
 
-print(get_current_data('BTC','GBP'))
+#print(get_current_data('BTC','GBP'))
 
 
