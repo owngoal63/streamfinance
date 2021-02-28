@@ -162,9 +162,9 @@ for tickerSymbol in tickerSymbols:
     # Plot the data
     fig, ax = plt.subplots()
     #ax.ticklabel_format(useOffset=False, style='plain')
-    ax.plot(tickerDf['Close'], label='Close Price($)')
-    ax.plot(SMA30['Close'], label = 'SMA30')
-    ax.plot(SMA100['Close'], label = 'SMA100')
+    ax.plot(tickerDf['Close'], label='Close Price($)', lw=1)
+    ax.plot(SMA30['Close'], label = 'SMA30', lw=1)
+    ax.plot(SMA100['Close'], label = 'SMA100', lw=1)
     ax.legend(loc='upper left')
     ax.xaxis.set_tick_params(rotation=45)
 
@@ -187,9 +187,9 @@ for tickerSymbol in tickerSymbols:
 
     # Visualise the data and the strategy
     fig, ax = plt.subplots()
-    ax.plot(data['Daily Close'], label='Daily Close Price ($)', alpha = 0.35)
-    ax.plot(data['SMA30'], label='SMA30', alpha = 0.35)
-    ax.plot(data['SMA100'], label='SMA100', alpha = 0.35)
+    ax.plot(data['Daily Close'], label='Daily Close Price ($)', alpha = 0.35, lw=1)
+    ax.plot(data['SMA30'], label='SMA30', alpha = 0.35, lw=1)
+    ax.plot(data['SMA100'], label='SMA100', alpha = 0.35, lw=1)
     ax.scatter(data.index, data['Buy Signal Price'], label = "Buy", marker='^', color='green')
     ax.scatter(data.index, data['Sell Signal Price'], label = "Sell", marker='v', color='red')
     ax.legend(loc='upper left')
@@ -227,7 +227,7 @@ for tickerSymbol in tickerSymbols:
 
     # Plot the chart
     fig, ax = plt.subplots()
-    ax.plot(tickerDf['Close'], label='Close', color='blue', alpha=0.35)
+    ax.plot(tickerDf['Close'], label='Close', color='blue', alpha=0.35, lw=1)
     ax.scatter(tickerDf.index, tickerDf['Buy_Signal_Price'], label='Buy', color='green', marker='^')
     ax.scatter(tickerDf.index, tickerDf['Sell_Signal_Price'], label='Sell', color='red', marker='v')
     ax.legend(loc='upper left')
