@@ -81,7 +81,7 @@ def plot_data(df, cryptocurrency, target_currency):
     
     return None
 
-st.write("# Ciara's crypto canine money maker!")
+st.write("# Ciara & Fozia's crypto canine money maker!")
 
 st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this rival!", width=100)
 
@@ -103,17 +103,23 @@ st.image("https://cdn.vox-cdn.com/thumbor/lddh05MIQrPTx2QL93RLRGZHfEM=/21x0:539x
 
 
 current_price = round(get_current_data('DOGE','GBP').get("GBP"),3)
-no_of_coins = 1280
-total_value = round(current_price * no_of_coins, 2)
-profit = round(total_value - 50,2)
-st.write("### Dogecoin: £" + str(current_price) + " Qty: " + str(no_of_coins) + " Balance: £" + str(total_value) + " Profit : £" + str(profit))
+ciara_no_of_coins = 1280
+fozia_no_of_coins = 353
+ciara_total_value = round(current_price * ciara_no_of_coins, 2)
+fozia_total_value = round(current_price * fozia_no_of_coins, 2)
+ciara_profit = round(ciara_total_value - 50,2)
+fozia_profit = round(fozia_total_value - 100,2)
+st.write("### Dogecoin Price now: £"+ str(current_price))
+st.write("### Ciara's Investment | Qty: " + str(ciara_no_of_coins) + " Balance: £" + str(ciara_total_value) + " Profit : £" + str(ciara_profit))
+st.write("### Fozia's Investment | Qty: " + str(fozia_no_of_coins) + " Balance: £" + str(fozia_total_value) + " Profit : £" + str(fozia_profit))
 
 plt.style.use('seaborn-whitegrid')
 plt.figure(figsize=(12.5, 4.5))
 
 fig, ax = plt.subplots()
 #ax.axhline(y=0.038, color='b', linestyle='-')
-ax.axvline(pd.Timestamp('2021-02-22'),color='r', label="Purchase point £0.038")
+ax.axvline(pd.Timestamp('2021-02-22'),color='r', label="Ciara's Purchase point £0.038")
+ax.axvline(pd.Timestamp('2021-04-16'),color='b', label="Fozia's Purchase point £0.28")
 ax.plot(df_doge.close, label='Close Price(GBP)', lw=1)
 ax.legend(loc='upper left')
 ax.xaxis.set_tick_params(rotation=45, labelsize=8)
