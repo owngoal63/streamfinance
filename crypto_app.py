@@ -86,7 +86,7 @@ st.write("# Ciara's crypto canine money maker!")
 st.image("https://owngoal63.pythonanywhere.com/media/images/Blueboy.png", caption="Blueboy is keeping an eye on this rival!", width=100)
 
 
-btime = st.slider("Move slider to decrease/increase data in periods of 10 days", min_value=1, max_value=20, value=10)
+btime = st.slider("Move slider to decrease/increase data by increments of 10 days", min_value=1, max_value=20, value=12)
 
 #cryptocurrency = 'DOGE'
 #target_currency = 'GBP'
