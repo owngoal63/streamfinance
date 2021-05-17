@@ -104,6 +104,9 @@ df_dot = data_to_dataframe(data)
 data = get_hist_data('CHZ', 'GBP', 'day', 10 * btime)
 df_chz = data_to_dataframe(data)
 
+data = get_hist_data('CAKE', 'GBP', 'day', 10 * btime)
+df_cake = data_to_dataframe(data)
+
 doge_current_price = round(get_current_data('DOGE','GBP').get("GBP"),3)
 
 st.write("### Dogecoin DOGE: £" + str(doge_current_price))
@@ -168,6 +171,7 @@ st.write("### Polkadot DOT: £" + str(dot_current_price))
 st.image("https://www.coinopsy.com/media/img/quality_logo/Polkadot.png", width=50)
 
 fig, ax = plt.subplots()
+ax.axvline(pd.Timestamp('2021-05-13'),color='g', label="Purchase point £32.36")
 ax.plot(df_dot.close, label='Polkadot', lw=1)
 ax.legend(loc='upper left')
 ax.xaxis.set_tick_params(rotation=45, labelsize=8)
@@ -184,6 +188,20 @@ fig, ax = plt.subplots()
 ax.axvline(pd.Timestamp('2021-05-16'),color='r', label="Purchase point £0.33")
 ax.axvline(pd.Timestamp('2021-05-15'),color='g', label="Purchase point £0.31")
 ax.plot(df_chz.close, label='Chiliz', lw=1)
+ax.legend(loc='upper left')
+ax.xaxis.set_tick_params(rotation=45, labelsize=8)
+ax.yaxis.set_tick_params(labelsize=8)
+
+st.pyplot(fig)
+
+cake_current_price = round(get_current_data('CAKE','GBP').get("GBP"),2)
+
+st.write("### PancakeSwap CAKE: £" + str(cake_current_price))
+st.image("https://dynamic-assets.coinbase.com/799c4f94ca16f05804c5856a242a2b105e4170090494c95326ef8178ab7fd716e3558031ede24d056d232e5e953873cbd7776430160960b124d277f6c7a0403c/asset_icons/7125e866d37d0835231d548349e2a8b5e60395f66509edbd84210f2ca1a1b775.png", width=50)
+
+fig, ax = plt.subplots()
+ax.axvline(pd.Timestamp('2021-05-15'),color='g', label="Purchase point £22.13")
+ax.plot(df_cake.close, label='Pancake Swap', lw=1)
 ax.legend(loc='upper left')
 ax.xaxis.set_tick_params(rotation=45, labelsize=8)
 ax.yaxis.set_tick_params(labelsize=8)
