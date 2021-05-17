@@ -104,12 +104,12 @@ df_dot = data_to_dataframe(data)
 data = get_hist_data('CHZ', 'GBP', 'day', 10 * btime)
 df_chz = data_to_dataframe(data)
 
-st.write("### Dogecoin DOGE")
+doge_current_price = round(get_current_data('DOGE','GBP').get("GBP"),3)
+
+st.write("### Dogecoin DOGE: £" + str(doge_current_price))
 st.image("https://www.coinopsy.com/media/img/quality_logo/Dogecoin.png", width=50)
 
 
-
-# current_price = round(get_current_data('DOGE','GBP').get("GBP"),3)
 # no_of_coins = 1280
 # total_value = round(current_price * no_of_coins, 2)
 # profit = round(total_value - 50,2)
@@ -130,7 +130,9 @@ ax.yaxis.set_tick_params(labelsize=8)
 
 st.pyplot(fig)
 
-st.write("### Bitcoin BTC")
+btc_current_price = round(get_current_data('BTC','GBP').get("GBP"),2)
+
+st.write("### Bitcoin BTC: £" + str(btc_current_price))
 
 st.image("https://www.coinopsy.com/media/img/quality_logo/bitcoin-btc.png", width=50)
 
@@ -143,7 +145,9 @@ ax.yaxis.set_tick_params(labelsize=8)
 
 st.pyplot(fig)
 
-st.write("### Ethereum ETH")
+eth_current_price = round(get_current_data('ETH','GBP').get("GBP"),2)
+
+st.write("### Ethereum ETH: £" + str(eth_current_price))
 
 st.image("https://www.coinopsy.com/media/img/quality_logo/ethereum-eth.png", width=50)
 
@@ -155,7 +159,9 @@ ax.yaxis.set_tick_params(labelsize=8)
 
 st.pyplot(fig)
 
-st.write("### Polkadot DOT")
+dot_current_price = round(get_current_data('DOT','GBP').get("GBP"),2)
+
+st.write("### Polkadot DOT: £" + str(dot_current_price))
 
 st.image("https://www.coinopsy.com/media/img/quality_logo/Polkadot.png", width=50)
 
@@ -167,7 +173,9 @@ ax.yaxis.set_tick_params(labelsize=8)
 
 st.pyplot(fig)
 
-st.write("### Chiliz CHZ")
+chz_current_price = round(get_current_data('CHZ','GBP').get("GBP"),2)
+
+st.write("### Chiliz CHZ: £" + str(chz_current_price))
 st.image("https://www.coinopsy.com/media/img/quality_logo/Chiliz.png", width=50)
 
 fig, ax = plt.subplots()
