@@ -182,7 +182,7 @@ st.image("https://www.coinopsy.com/media/img/quality_logo/Chiliz.png", width=50)
 
 fig, ax = plt.subplots()
 ax.axvline(pd.Timestamp('2021-05-16'),color='r', label="Purchase point £0.33")
-ax.axvline(pd.Timestamp('2021-05-15'),color='g', label="Purchase point £0.33")
+ax.axvline(pd.Timestamp('2021-05-15'),color='g', label="Purchase point £0.31")
 ax.plot(df_chz.close, label='Chiliz', lw=1)
 ax.legend(loc='upper left')
 ax.xaxis.set_tick_params(rotation=45, labelsize=8)
