@@ -142,6 +142,7 @@ st.image("https://www.coinopsy.com/media/img/quality_logo/bitcoin-btc.png", widt
 
 fig, ax = plt.subplots()
 ax.axvline(pd.Timestamp('2021-04-18'),color='r', label="Purchase point £40,403")
+ax.axvline(pd.Timestamp('2021-05-25'),color='y', label="Purchase point £27,090")
 ax.plot(df_btc.close, label='Bitcoin', lw=1)
 ax.legend(loc='upper left')
 ax.xaxis.set_tick_params(rotation=45, labelsize=8)
